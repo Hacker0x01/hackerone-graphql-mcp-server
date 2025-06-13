@@ -2,6 +2,8 @@
 
 A Docker image that provides access to HackerOne's GraphQL API through the Model Context Protocol (MCP). Supports stdio transport only.
 
+**Multi-Architecture Support**: This image supports both Intel/AMD (amd64) and Apple Silicon (arm64) architectures.
+
 ## Quick Start
 
 1. **Run with an MCP client**:
@@ -53,3 +55,18 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 - Running the container directly will result in an error as it expects an MCP client connection
 - The `-i` flag is required to maintain standard input for the stdio transport
 - The `schema.graphql` in this repository may become outdated over time, you can download the latest one from HackerOne at [https://hackerone.com/schema.graphql](https://hackerone.com/schema.graphql)
+
+## Building Multi-Architecture Image
+
+```
+docker buildx create --name multiarch --driver docker-container --use
+docker buildx inspect --bootstrap
+
+# Build and push multi-arch image
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  --tag hackertwo/hackerone-graphql-mcp-server:latest \
+  --tag hackertwo/hackerone-graphql-mcp-server:v1.0.0 \
+  --push \
+  .
+```
