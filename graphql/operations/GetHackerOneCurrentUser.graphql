@@ -1,4 +1,7 @@
-query GetHackerOneCurrentUser {
+query GetHackerOneCurrentUser($extra: Boolean = true) {
+  # This extra field is a hack to force inputs, a workaround for https://github.com/apollographql/apollo-mcp-server/issues/136
+  _unused: __typename @skip(if: $extra)
+
   me {
     id
     databaseId: _id

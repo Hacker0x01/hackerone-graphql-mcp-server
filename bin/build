@@ -1,0 +1,8 @@
+#!/bin/bash
+
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  --tag hackertwo/hackerone-graphql-mcp-server:latest \
+  --tag hackertwo/hackerone-graphql-mcp-server:v1.0.2 \
+  --push \
+  .
