@@ -4,17 +4,12 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 
 ## Quick Start
 
-1. **Build the Docker image**:
-   ```sh
-   docker build -t hackerone-mcp .
-   ```
-
-2. **Run with an MCP client**:
+1. **Run with an MCP client**:
    ```sh
    docker run -i --rm \
      -e ENDPOINT="https://hackerone.com/graphql" \
      -e TOKEN="<your_base64_encoded_token>" \
-     hackerone-mcp
+     hackertwo/hackerone-graphql-mcp-server:latest
    ```
 
 ## Environment Variables
@@ -43,7 +38,7 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
           "ENDPOINT=https://hackerone.com/graphql",
           "-e",
           "TOKEN=<your_base64_encoded_token>",
-          "hackerone-mcp"
+          "hackertwo/hackerone-graphql-mcp-server:latest"
         ]
       },
       "settings": {}
