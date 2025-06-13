@@ -1,0 +1,30 @@
+query GetHackerOneReportByID($databaseId: Int!) {
+  reports(database_id: $databaseId, first: 1) {
+    edges {
+      node {
+        id
+        databaseId: _id
+        title
+        vulnerability_information
+        substate
+        severity {
+          id
+          rating
+        }
+        team {
+          id
+          handle
+          name
+        }
+        reporter {
+          id
+          name
+          username
+        }
+        custom_fields {
+          total_count
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+query GetHackerOneCurrentUser {
+  me {
+    id
+    databaseId: _id
+    name
+    email
+    username
+  }
+}

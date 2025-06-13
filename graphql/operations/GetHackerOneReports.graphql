@@ -1,0 +1,38 @@
+query GetHackerOneReports(
+  $handle: String
+  $state: ReportStateEnum
+  $substate: ReportStateEnum
+  $first: Int
+  $after: String
+) {
+  reports(handle: $handle, state: $state, substate: $substate, first: $first, after: $after) {
+    total_count
+    pageInfo {
+      endCursor
+      hasNextPage
+    }
+    edges {
+      cursor
+      node {
+        id
+        databaseId: _id
+        title
+        state
+        substate
+        submitted_at
+        severity {
+          rating
+        }
+        reporter {
+          name
+          username
+        }
+        team {
+          id
+          handle
+          name
+        }
+      }
+    }
+  }
+}

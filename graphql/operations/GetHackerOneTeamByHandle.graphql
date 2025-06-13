@@ -1,0 +1,28 @@
+query GetHackerOneTeamByHandle($handle: String!) {
+  team(handle: $handle) {
+    id
+    databaseId: _id
+    handle
+    name
+    url
+    about
+    state
+    submission_state
+    offers_bounties
+    response_efficiency_percentage
+    policy_setting {
+      policy
+    }
+    structured_scopes(first: 10) {
+      total_count
+      edges {
+        node {
+          id
+          asset_identifier
+          asset_type
+          eligible_for_bounty
+        }
+      }
+    }
+  }
+}

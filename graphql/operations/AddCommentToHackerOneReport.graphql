@@ -1,0 +1,30 @@
+mutation AddCommentToHackerOneReport($reportId: ID!, $message: String!, $internal: Boolean!) {
+  createActivityComment(input: { report_id: $reportId, message: $message, internal: $internal }) {
+    was_successful
+    errors {
+      edges {
+        node {
+          field
+          message
+        }
+      }
+    }
+    activity {
+      ... on ActivitiesComment {
+        id
+        databaseId: _id
+        message
+        internal
+        created_at
+        actor {
+          ... on User {
+            username
+          }
+          ... on Team {
+            name
+          }
+        }
+      }
+    }
+  }
+}

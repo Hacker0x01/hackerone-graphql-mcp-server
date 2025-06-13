@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# NOTE: Log level must be as high as possible to avoid breaking the stdio MCP protocol.
+
+/app/apollo-mcp-server --directory "/app/graphql" \
+  --schema "schema.graphql" \
+  --operations operations/ \
+  --log error \
+  --endpoint "${ENDPOINT}" \
+  --header "Authorization: Bearer ${TOKEN}" \
+  --allow-mutations all
