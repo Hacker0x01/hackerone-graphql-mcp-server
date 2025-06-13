@@ -2,10 +2,12 @@
 
 # NOTE: Log level must be as high as possible to avoid breaking the stdio MCP protocol.
 
+# https://www.apollographql.com/docs/apollo-mcp-server/command-reference
 /app/apollo-mcp-server --directory "/app/graphql" \
   --schema "schema.graphql" \
   --operations operations/ \
   --log error \
   --endpoint "${ENDPOINT}" \
   --header "Authorization: Bearer ${TOKEN}" \
-  --allow-mutations all
+  --allow-mutations all \
+  "$@"

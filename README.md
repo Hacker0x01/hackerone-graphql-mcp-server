@@ -66,7 +66,7 @@ docker buildx inspect --bootstrap
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
   --tag hackertwo/hackerone-graphql-mcp-server:latest \
-  --tag hackertwo/hackerone-graphql-mcp-server:v1.0.0 \
+  --tag hackertwo/hackerone-graphql-mcp-server:v1.0.1 \
   --push \
   .
 ```
