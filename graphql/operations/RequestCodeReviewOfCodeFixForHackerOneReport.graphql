@@ -1,5 +1,5 @@
-mutation RequestCodeReviewOfCodeFixForHackerOneReport($databaseId: Int!, $code_review_patch: String!) {
-  createCodeReviewForReport(input: { report_id: $databaseId, code_review_patch: $code_review_patch }) {
+mutation RequestCodeReviewOfCodeFixForHackerOneReport($databaseId: Int!, $code_review_patch: String!, $message: String!) {
+  createCodeReviewForReport(input: { report_id: $databaseId, code_review_patch: $code_review_patch, message: $message }) {
     was_successful
     errors {
       edges {
@@ -9,6 +9,7 @@ mutation RequestCodeReviewOfCodeFixForHackerOneReport($databaseId: Int!, $code_r
         }
       }
     }
+
     activity {
       ... on ActivitiesCodeReviewRequested {
         id
