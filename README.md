@@ -1,6 +1,8 @@
 # HackerOne GraphQL MCP Server Docker Image
 
-A Docker image that provides access to HackerOne's GraphQL API through the Model Context Protocol (MCP). Supports stdio transport only.
+A Docker image that provides access to HackerOne's GraphQL API through the Model Context Protocol (MCP).
+
+**Supported MCP transport types**: Currently only stdio transport is supported. Please file an issue if you require [other transports](https://modelcontextprotocol.io/docs/concepts/transports#built-in-transport-types).
 
 **Multi-Architecture Support**: This image supports both Intel/AMD (amd64) and Apple Silicon (arm64) architectures.
 
