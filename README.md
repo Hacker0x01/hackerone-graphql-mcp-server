@@ -69,11 +69,7 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 
 To create a new release:
 
-1. Create and push a git tag following semantic versioning:
-   ```sh
-   git tag v1.2.3
-   git push origin v1.2.3
-   ```
+1. Create a [new release in GitHub](https://github.com/Hacker0x01/hackerone-graphql-mcp-server/releases/new)
 
 2. GitHub Actions will automatically:
    - Build multi-architecture images (amd64, arm64)
