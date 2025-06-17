@@ -1,0 +1,26 @@
+mutation RequestCodeReviewOfCodeFixForHackerOneReport($databaseId: Int!, $code_review_patch: String!, $message: String!) {
+  createCodeReviewForReport(input: { report_id: $databaseId, code_review_patch: $code_review_patch, message: $message }) {
+    was_successful
+    errors {
+      edges {
+        node {
+          field
+          message
+        }
+      }
+    }
+
+    activity {
+      ... on ActivitiesCodeReviewRequested {
+        id
+        message
+        created_at
+      }
+    }
+
+    report {
+      id
+      databaseId: _id
+    }
+  }
+}
