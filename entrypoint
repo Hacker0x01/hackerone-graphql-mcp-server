@@ -2,6 +2,20 @@
 
 # NOTE: Log level must be as high as possible to avoid breaking the stdio MCP protocol.
 
+# Set default value for ALLOW_MUTATIONS if not provided
+ALLOW_MUTATIONS="${ALLOW_MUTATIONS:-none}"
+
+# Validate ALLOW_MUTATIONS value
+case "$ALLOW_MUTATIONS" in
+  "none"|"explicit"|"all")
+    # Valid value, continue
+    ;;
+  *)
+    echo "Error: ALLOW_MUTATIONS must be one of: none, explicit, all. Got: $ALLOW_MUTATIONS" >&2
+    exit 1
+    ;;
+esac
+
 # https://www.apollographql.com/docs/apollo-mcp-server/command-reference
 /app/apollo-mcp-server --directory "/app/graphql" \
   --schema "schema.graphql" \
@@ -9,5 +23,5 @@
   --log error \
   --endpoint "${ENDPOINT}" \
   --header "Authorization: Bearer ${TOKEN}" \
-  --allow-mutations all \
+  --allow-mutations "$ALLOW_MUTATIONS" \
   "$@"

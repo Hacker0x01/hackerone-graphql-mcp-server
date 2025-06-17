@@ -13,6 +13,7 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
    docker run -i --rm \
      -e ENDPOINT="https://hackerone.com/graphql" \
      -e TOKEN="<your_base64_encoded_token>" \
+     -e ALLOW_MUTATIONS="none" \
      hackertwo/hackerone-graphql-mcp-server:latest
    ```
 
@@ -20,6 +21,10 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 
 - `ENDPOINT`: GraphQL endpoint URL (default: https://hackerone.com/graphql)
 - `TOKEN`: Base64 encoded API token in format: `base64(username:api_key)`
+- `ALLOW_MUTATIONS`: Controls which mutations are allowed (default: none)
+  - `none`: No mutations allowed
+  - `explicit`: Only explicitly defined mutations allowed
+  - `all`: All mutations allowed
 
 ## Generating an API Token
 
@@ -42,6 +47,8 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
           "ENDPOINT=https://hackerone.com/graphql",
           "-e",
           "TOKEN=<your_base64_encoded_token>",
+          "-e",
+          "ALLOW_MUTATIONS=none",
           "hackertwo/hackerone-graphql-mcp-server:latest"
         ]
       },
