@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.4] - 2025-06-17
+
+- Reduce excess image creation
+
 ## [1.0.3] - 2025-06-17
 
 - Add `ALLOW_MUTATIONS` environment variable to control mutation permissions (default: none)
