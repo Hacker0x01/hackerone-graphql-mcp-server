@@ -19,6 +19,7 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 - **`latest`**: Latest stable release (only updated on version releases)
 - **`dev-<commit>`**: Development builds from main branch (e.g., `dev-abc1234`)
 - **`v1.0.0`**: Specific version releases
+- **`pr-<ref>`**: Pull request builds
 
 ## Environment Variables
 
