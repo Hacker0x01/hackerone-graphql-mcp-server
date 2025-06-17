@@ -1,4 +1,4 @@
-# HackerOne GraphQL MCP Server Docker Image
+# HackerOne GraphQL MCP Server
 
 A Docker image that provides access to HackerOne's GraphQL API through the Model Context Protocol (MCP).
 
