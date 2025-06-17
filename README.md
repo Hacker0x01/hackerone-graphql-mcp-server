@@ -17,6 +17,13 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
      hackertwo/hackerone-graphql-mcp-server:latest
    ```
 
+## Docker Image Tags
+
+- **`latest`**: Latest stable release (only updated on version releases)
+- **`dev-<commit>`**: Development builds from main branch (e.g., `dev-abc1234`)
+- **`v1.0.0`**: Specific version releases
+- **`pr-<ref>`**: Pull request builds
+
 ## Environment Variables
 
 - `ENDPOINT`: GraphQL endpoint URL (default: https://hackerone.com/graphql)
@@ -67,7 +74,20 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 
 ## Development
 
-### Updating the Docker image
+### Creating a Release
+
+To create a new release:
+
+1. Create a [new release in GitHub](https://github.com/Hacker0x01/hackerone-graphql-mcp-server/releases/new)
+
+2. GitHub Actions will automatically:
+   - Build multi-architecture images (amd64, arm64)
+   - Push to Docker Hub with appropriate tags
+   - Update the `latest` tag
+
+### Manual Build (Local Development)
+
+For local development and testing:
 
 ```sh
 # Setup buildx
@@ -76,6 +96,9 @@ docker buildx inspect --bootstrap
 
 # Build and push the image
 bin/build
+
+# Clean up
+docker buildx rm multiarch
 ```
 
 ### Updating the GraphQL schema
