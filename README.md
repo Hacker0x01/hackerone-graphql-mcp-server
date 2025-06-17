@@ -70,3 +70,9 @@ docker buildx inspect --bootstrap
 # Build and push the image
 bin/build
 ```
+
+### Updating the GraphQL schema
+
+```sh
+curl https://hackerone.com/schema.graphql -o graphql/schema.graphql
+```
