@@ -14,7 +14,7 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
      -e ENDPOINT="https://hackerone.com/graphql" \
      -e TOKEN="<your_base64_encoded_token>" \
      -e ALLOW_MUTATIONS="none" \
-     hackertwo/hackerone-graphql-mcp-server:latest
+     hackertwo/hackerone-graphql-mcp-server:1.0.5
    ```
 
 ## Docker Image Tags
@@ -40,26 +40,25 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 3. Use the resulting string as your TOKEN value
 
 ## Example config in editor (Zed)
+
 ```json
 {
   "context_servers": {
     "hackerone-graphql-mcp-server": {
-      "command": {
-        "path": "/usr/local/bin/docker",
-        "args": [
-          "run",
-          "-i",
-          "--rm",
-          "-e",
-          "ENDPOINT=https://hackerone.com/graphql",
-          "-e",
-          "TOKEN=<your_base64_encoded_token>",
-          "-e",
-          "ALLOW_MUTATIONS=none",
-          "hackertwo/hackerone-graphql-mcp-server:latest"
-        ]
-      },
-      "settings": {}
+      "source": "custom",
+      "command": "/usr/local/bin/docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "ENDPOINT=https://hackerone.com/graphql",
+        "-e",
+        "TOKEN=<your_base64_encoded_token>",
+        "-e",
+        "ALLOW_MUTATIONS=none",
+        "hackertwo/hackerone-graphql-mcp-server:1.0.5"
+      ]
     }
   }
 }
@@ -105,4 +104,26 @@ docker buildx rm multiarch
 
 ```sh
 curl https://hackerone.com/schema.graphql -o graphql/schema.graphql
+```
+
+### Debugging
+
+1. Run MCP inspector:
+
+```
+npx @modelcontextprotocol/inspector
+```
+
+2. Connect to the HackerOne MCP server from the UI:
+
+Command:
+
+```sh
+/usr/local/bin/docker
+```
+
+Arguments:
+
+```sh
+run -i --rm -e ENDPOINT=http://host.docker.internal:3000/graphql -e TOKEN=<TOKEN> -e ALLOW_MUTATIONS=all hackertwo/hackerone-graphql-mcp-server:1.0.5
 ```
