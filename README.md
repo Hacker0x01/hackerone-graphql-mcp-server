@@ -108,22 +108,20 @@ curl https://hackerone.com/schema.graphql -o graphql/schema.graphql
 
 ### Debugging
 
-1. Run MCP inspector:
+1. **Run MCP inspector:**
+   ```sh
+   npx @modelcontextprotocol/inspector
+   ```
 
-```
-npx @modelcontextprotocol/inspector
-```
+3. **Connect to the HackerOne MCP server from the web interface:**
 
-2. Connect to the HackerOne MCP server from the UI:
-
-Command:
-
-```sh
-/usr/local/bin/docker
-```
-
-Arguments:
-
-```sh
-run -i --rm -e ENDPOINT=http://host.docker.internal:3000/graphql -e TOKEN=<TOKEN> -e ALLOW_MUTATIONS=all hackertwo/hackerone-graphql-mcp-server:1.0.5
-```
+   Command:
+   ```sh
+   /usr/local/bin/docker
+   ```
+   
+   Arguments:
+   
+   ```sh
+   run -i --rm -e ENDPOINT=http://host.docker.internal:3000/graphql -e TOKEN=<TOKEN> -e ALLOW_MUTATIONS=all hackertwo/hackerone-graphql-mcp-server:1.0.5
+   ```
