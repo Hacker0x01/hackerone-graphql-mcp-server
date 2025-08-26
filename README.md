@@ -35,9 +35,41 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 
 ## Generating an API Token
 
+### Option 1: Using the included script (recommended)
+1. Visit https://hackerone.com/settings/api_token/edit to generate an API key
+2. Run the token generation script: `./scripts/generate_token.sh`
+   This will prompt for your username and API key, then automatically encode and copy the token to your clipboard.
+3. Use the resulting string as your TOKEN value
+
+### Option 2: Manual encoding
 1. Visit https://hackerone.com/settings/api_token/edit to generate an API key
 2. Encode as: `echo -n "username:api_key" | base64`
 3. Use the resulting string as your TOKEN value
+
+## Example config in Flowise
+
+1. Go to an Agent node
+2. Go to tools
+3. Select custom MCP
+4. Put the following in the MCP parameters:
+
+```json
+{
+    "command": "/usr/local/bin/docker",
+    "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "ENDPOINT=https://hackerone.com/graphql",
+        "-e",
+        "TOKEN=<your_base64_encoded_token>",
+        "-e",
+        "ALLOW_MUTATIONS=none",
+        "hackertwo/hackerone-graphql-mcp-server:1.0.5"
+    ]
+}
+```
 
 ## Example config in editor (Zed)
 
