@@ -1,0 +1,20 @@
+# https://www.apollographql.com/docs/apollo-mcp-server/command-reference
+endpoint: __ENDPOINT__
+headers:
+  Authorization: "Bearer __TOKEN__"
+operations:
+  source: local
+  paths:
+    - /app/graphql/operations
+schema:
+  source: local
+  path: /app/graphql/schema.graphql
+logging:
+  level: error
+overrides:
+  disable_type_description: __DISABLE_TYPE_DESCRIPTION__
+  disable_schema_description: __DISABLE_SCHEMA_DESCRIPTION__
+  enable_explorer: false
+  mutation_mode: __MUTATION_MODE__
+transport:
+  type: stdio

@@ -13,7 +13,7 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
    docker run -i --rm \
      -e ENDPOINT="https://hackerone.com/graphql" \
      -e TOKEN="<your_base64_encoded_token>" \
-     -e ALLOW_MUTATIONS="none" \
+     -e MUTATION_MODE="none" \
      hackertwo/hackerone-graphql-mcp-server:1.0.5
    ```
 
@@ -26,12 +26,13 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 
 ## Environment Variables
 
-- `ENDPOINT`: GraphQL endpoint URL (default: https://hackerone.com/graphql)
-- `TOKEN`: Base64 encoded API token in format: `base64(username:api_key)`
-- `ALLOW_MUTATIONS`: Controls which mutations are allowed (default: none)
-  - `none`: No mutations allowed
-  - `explicit`: Only explicitly defined mutations allowed
-  - `all`: All mutations allowed
+| Variable                     | Description                                                                                                                                                             | Default                         |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `ENDPOINT`                   | GraphQL endpoint URL                                                                                                                                                    | `https://hackerone.com/graphql` |
+| `TOKEN`                      | Base64 encoded API token in format: `base64(username:api_key)`                                                                                                          | -                               |
+| `MUTATION_MODE`              | Controls which mutations are allowed:<br/>• `none`: No mutations allowed<br/>• `explicit`: Only explicitly defined mutations allowed<br/>• `all`: All mutations allowed | `none`                          |
+| `DISABLE_TYPE_DESCRIPTION`   | If set to `true`, tools will have no type descriptions (e.g. "The returned value has type ...")                                                                         | `false`                         |
+| `DISABLE_SCHEMA_DESCRIPTION` | If set to `true`, tools will have no schema description                                                                                                                 | `false`                         |
 
 ## Generating an API Token
 
@@ -65,7 +66,7 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
         "-e",
         "TOKEN=<your_base64_encoded_token>",
         "-e",
-        "ALLOW_MUTATIONS=none",
+        "MUTATION_MODE=none",
         "hackertwo/hackerone-graphql-mcp-server:1.0.5"
     ]
 }
@@ -88,7 +89,7 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
         "-e",
         "TOKEN=<your_base64_encoded_token>",
         "-e",
-        "ALLOW_MUTATIONS=none",
+        "MUTATION_MODE=none",
         "hackertwo/hackerone-graphql-mcp-server:1.0.5"
       ]
     }

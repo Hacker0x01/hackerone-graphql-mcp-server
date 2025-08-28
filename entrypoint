@@ -2,26 +2,36 @@
 
 # NOTE: Log level must be as high as possible to avoid breaking the stdio MCP protocol.
 
-# Set default value for ALLOW_MUTATIONS if not provided
-ALLOW_MUTATIONS="${ALLOW_MUTATIONS:-none}"
+ENDPOINT="${ENDPOINT:-https://hackerone.com/graphql}"
+MUTATION_MODE="${ALLOW_MUTATIONS:-${MUTATION_MODE:-none}}" # backwards compatible with ALLOW_MUTATIONS
+DISABLE_TYPE_DESCRIPTION="${DISABLE_TYPE_DESCRIPTION:-false}"
+DISABLE_SCHEMA_DESCRIPTION="${DISABLE_SCHEMA_DESCRIPTION:-false}"
 
-# Validate ALLOW_MUTATIONS value
-case "$ALLOW_MUTATIONS" in
+# Validate that TOKEN is provided
+if [ -z "$TOKEN" ]; then
+    echo "Error: TOKEN environment variable is required" >&2
+    exit 1
+fi
+
+# Validate MUTATION_MODE value
+case "$MUTATION_MODE" in
   "none"|"explicit"|"all")
     # Valid value, continue
     ;;
   *)
-    echo "Error: ALLOW_MUTATIONS must be one of: none, explicit, all. Got: $ALLOW_MUTATIONS" >&2
+    echo "Error: MUTATION_MODE must be one of: none, explicit, all. Got: $MUTATION_MODE" >&2
     exit 1
     ;;
 esac
 
-# https://www.apollographql.com/docs/apollo-mcp-server/command-reference
-/app/apollo-mcp-server --directory "/app/graphql" \
-  --schema "schema.graphql" \
-  --operations operations/ \
-  --log error \
-  --endpoint "${ENDPOINT}" \
-  --header "Authorization: Bearer ${TOKEN}" \
-  --allow-mutations "$ALLOW_MUTATIONS" \
-  "$@"
+# Create a temporary config file with the dynamic endpoint and authorization header
+CONFIG_FILE="/tmp/config.yaml"
+sed -e "s|__ENDPOINT__|${ENDPOINT}|g" \
+    -e "s|__TOKEN__|${TOKEN}|g" \
+    -e "s|__MUTATION_MODE__|${MUTATION_MODE}|g" \
+    -e "s|__DISABLE_TYPE_DESCRIPTION__|${DISABLE_TYPE_DESCRIPTION}|g" \
+    -e "s|__DISABLE_SCHEMA_DESCRIPTION__|${DISABLE_SCHEMA_DESCRIPTION}|g" \
+    /config.yaml > "$CONFIG_FILE"
+
+# Launch the apollo-mcp-server with the dynamically generated config
+/app/apollo-mcp-server "$CONFIG_FILE"
