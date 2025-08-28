@@ -21543,12 +21543,6 @@ enum HaiTaskAgentEnum {
   A Flowise-powered agent specialized for content summarization, analysis, and information extraction
   """
   FLOWISE_SAMPLE
-
-  """
-  A Bedrock agent specialized for calculations, system operations, and data
-  processing with human oversight for sensitive operations
-  """
-  INSIGHT_AGENT
 }
 
 type HaiTaskArtifact implements Node {
@@ -22198,7 +22192,8 @@ An intake recommendation on a report
 type IntakeRecommendation implements Node {
   confidence: Int
   id: ID!
-  message: String
+  message_for_customer: String
+  message_for_reporter: String
   recommended_action: String
   steps: Hash
 }
@@ -31635,6 +31630,7 @@ type PentestChecklistEdge {
 }
 
 type PentestChecklistTemplate implements Node {
+  aasm_state: String!
   archived_at: DateTime
   description: String
   global: Boolean!
