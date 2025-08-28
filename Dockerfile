@@ -7,10 +7,11 @@ RUN apt-get update && apt-get install -y curl && \
 # Set working directory
 WORKDIR /app
 
-RUN curl -sSL https://mcp.apollo.dev/download/nix/v0.3.0 | sh
+RUN curl -sSL https://mcp.apollo.dev/download/nix/v0.7.3 | sh
 
 # Copy the graphql directory containing schema and operations
 COPY ./graphql /app/graphql
+COPY ./config.yaml /config.yaml
 
 # Copy the entrypoint script
 COPY ./entrypoint /app/entrypoint
