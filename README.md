@@ -6,6 +6,8 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 
 **Multi-Architecture Support**: This image supports both Intel/AMD (amd64) and Apple Silicon (arm64) architectures.
 
+**Built on Apollo MCP Server**: This project is a thin wrapper around the upstream [Apollo MCP Server](https://github.com/apollographql/apollo-mcp-server), which exposes GraphQL operations as MCP tools.
+
 ## Quick Start
 
 1. **Run with an MCP client**:
@@ -103,3 +105,13 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 - Running the container directly will result in an error as it expects an MCP client connection
 - The `-i` flag is required to maintain standard input for the stdio transport
 - The `schema.graphql` in this repository may become outdated over time, you can download the latest one from HackerOne at [https://hackerone.com/schema.graphql](https://hackerone.com/schema.graphql)
+
+## Issues & Contributions
+
+- **HackerOne-specific behavior, configuration, token handling, schema quirks, mutation allow-listing, etc.:** open an issue in this repository.
+- **Generic MCP behavior, transports, protocol details, or GraphQL tool exposure mechanics:** consider checking/filing upstream in **apollographql/apollo-mcp-server**.
+
+## Licensing Notes
+
+This project depends on [Apollo MCP Server](https://github.com/apollographql/apollo-mcp-server), which is licensed under the **MIT License**.  
+Your use of this image includes use of Apollo MCP Server under its license; please review the upstream LICENSE.
