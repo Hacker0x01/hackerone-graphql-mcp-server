@@ -1,0 +1,86 @@
+# Enables querying findings (aka vulnerability reports) across an entire organization.
+#
+# <IMPORTANT>
+# Before querying this tool, run the `GetHackerOneOrganizationByHandle` tool!
+# It returns the `list_all_report_fields_markdown` field which contains the ElasticSearch schema
+# queryable using the queryString variable below.
+# </IMPORTANT>
+#
+# Example variables:
+# {
+#   "handle": "hackerone",
+#   "queryString": "substate:resolved AND severity:critical AND weakness.external_id:cwe-150",
+#   "sortQuery": "{\"id\":{\"order\":\"asc\"}}",
+#   "size": 25,
+#   "from": 0,
+# }
+#
+# The "size" variable allows limiting the result set.
+# The "from" variable provides an offset for pagination.
+# The "queryString" variable allows filtering the results using an ElasticSearch query string.
+
+query SearchOrganizationFindings(
+  $handle: String!
+  $queryString: String!
+  $sortQuery: String
+  $size: Int!
+  $from: Int!
+) {
+  organization(handle: $handle) {
+    id
+    reports_search(
+      query_string: $queryString
+      sort_query: $sortQuery
+      size: $size
+      from: $from
+    ) {
+      total_count
+      nodes {
+        ...OrganizationReport
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}
+
+fragment OrganizationReport on OrganizationReportDocument {
+  activities_count
+  assigned_to_group
+  assigned_to_user
+  bounties
+  bounties_count
+  bounties_total_awarded_amount
+  campaign
+  closed_at
+  database_id
+  disclosed_at
+  engagement
+  graphql_id
+  id
+  inboxes
+  ineligible_for_bounty
+  last_activity_at
+  mentions
+  organization
+  participants
+  reference
+  reference_url
+  reporter
+  severity
+  state
+  structured_scope
+  submitted_at
+  substate
+  title
+  vulnerability_information
+  weakness
+  spot_check
+  last_comment_by_reporter
+  triaged_at
+  mediation_request
+  campaign
+  tags
+  __typename
+}
