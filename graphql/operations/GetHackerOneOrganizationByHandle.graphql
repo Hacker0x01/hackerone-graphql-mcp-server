@@ -1,0 +1,10 @@
+query GetHackerOneOrganizationByHandle($handle: String!) {
+  organizations(first: 1, where: { handle: { _eq: $handle } }) {
+    nodes {
+      id
+      name
+      handle
+      list_all_report_fields_markdown
+    }
+  }
+}
