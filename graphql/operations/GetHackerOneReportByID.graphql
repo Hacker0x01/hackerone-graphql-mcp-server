@@ -7,6 +7,8 @@ query GetHackerOneReportByID($databaseId: Int!) {
         title
         vulnerability_information
         substate
+        reference
+        reference_link
         severity {
           id
           rating
@@ -23,6 +25,36 @@ query GetHackerOneReportByID($databaseId: Int!) {
         }
         custom_fields {
           total_count
+        }
+        activities(
+          first: 100
+          order_by: { field: created_at, direction: ASC }
+        ) {
+          total_count
+          edges {
+            node {
+              ... on ActivityInterface {
+                id
+                _id
+                internal
+                created_at
+                updated_at
+                message
+                actor {
+                  ... on User {
+                    id
+                    username
+                    name
+                  }
+                  ... on Team {
+                    id
+                    handle
+                    name
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
