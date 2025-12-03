@@ -106,6 +106,55 @@ A Docker image that provides access to HackerOne's GraphQL API through the Model
 - The `-i` flag is required to maintain standard input for the stdio transport
 - The `schema.graphql` in this repository may become outdated over time, you can download the latest one from HackerOne at [https://hackerone.com/schema.graphql](https://hackerone.com/schema.graphql)
 
+## Development
+
+### Creating a Release
+
+To create a new release:
+
+1. Create a [new release in GitHub](https://github.com/Hacker0x01/hackerone-graphql-mcp-server/releases/new).
+
+2. GitHub Actions will automatically:
+   - Build multi-architecture images (amd64, arm64)
+   - Push to Docker Hub with appropriate tags
+   - Update the `latest` tag
+
+### Manual Build (Local Development)
+
+For local development and testing:
+
+```sh
+# Setup buildx
+docker buildx create --name multiarch --driver docker-container --use
+docker buildx inspect --bootstrap
+
+# Build and push the image
+bin/build
+
+# Clean up
+docker buildx rm multiarch
+```
+
+### Debugging
+
+1. **Run MCP inspector:**
+   ```sh
+   npx @modelcontextprotocol/inspector
+   ```
+
+3. **Connect to the HackerOne MCP server from the web interface:**
+
+   Command:
+   ```sh
+   /usr/local/bin/docker
+   ```
+   
+   Arguments:
+   
+   ```sh
+   run -i --rm -e ENDPOINT=http://host.docker.internal:3000/graphql -e TOKEN=<TOKEN> -e ALLOW_MUTATIONS=all hackertwo/hackerone-graphql-mcp-server:1.0.5
+   ```
+
 ## Issues & Contributions
 
 - **HackerOne-specific behavior, configuration, token handling, schema quirks, mutation allow-listing, etc.:** open an issue in this repository.
